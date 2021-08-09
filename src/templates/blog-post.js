@@ -41,11 +41,14 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
         className="blog-post"
         itemScope
         itemType="http://schema.org/Article"
+        style={{ padding: "6px" }}
       >
         <header>
-          <h3 itemProp="headline">{parse(post.title)}</h3>
-
-          <p>{post.date}</p>
+          <div style={{ display: "flex" }}>
+            <h3 itemProp="headline">{parse(post.tags.nodes[0].name)}. </h3>
+            <h5 itemProp="headline">{parse(post.title)}</h5>
+          </div>
+          {/* <p>{post.date}</p> */}
 
           {/* if we have a featured image for this post let's display it */}
           {featuredImage?.fluid && (
@@ -117,6 +120,11 @@ export const pageQuery = graphql`
       content
       title
       date(formatString: "MMMM DD, YYYY")
+      tags {
+        nodes {          
+          name
+        }
+      }
 
       featuredImage {
         node {
