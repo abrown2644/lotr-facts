@@ -15,11 +15,10 @@ const BlogIndex = ({
   if (!posts.length) {
     return (
       <Layout isHomePage>
-        <Seo title="All posts" />
+        <Seo title="All Facts" />
         <Bio />
         <p>
-          No blog posts found. Add posts to your WordPress site and they'll
-          appear here!
+          No facts found.
         </p>
       </Layout>
     )
@@ -27,31 +26,30 @@ const BlogIndex = ({
 
   return (
     <Layout isHomePage>
-      <Seo title="All posts" />
+      <Seo title="All Facts" />
 
-      <Bio />
+      {/* <Bio /> */}
 
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.title
+          // console.log(posts);
+          const factNum = post.tags.nodes[0].name;
 
           return (
-            <li key={post.uri}>
-              <article
+            <li className="fact home-fact" key={post.uri}>
+              <small style={{ marginRight: "10px" }}>{factNum}</small>
+              {/* <article
                 className="post-list-item"
                 itemScope
                 itemType="http://schema.org/Article"
-              >
-                <header>
-                  <h2>
-                    <Link to={post.uri} itemProp="url">
-                      <span itemProp="headline">{parse(title)}</span>
-                    </Link>
-                  </h2>
-                  <small>{post.date}</small>
-                </header>
-                <section itemProp="description">{parse(post.excerpt)}</section>
-              </article>
+              > */}
+              <h6 style={{ margin: 0 }}>
+                <Link to={post.uri} itemProp="url">
+                  <span itemProp="headline">{parse(title)}</span>
+                </Link>
+              </h6>
+              {/* </article> */}
             </li>
           )
         })}
@@ -73,7 +71,7 @@ export default BlogIndex
 export const pageQuery = graphql`
   query WordPressPostArchive($offset: Int!, $postsPerPage: Int!) {
     allWpPost(
-      sort: { fields: [date], order: DESC }
+      sort: { fields: [date], order: ASC }
       limit: $postsPerPage
       skip: $offset
     ) {
@@ -83,6 +81,11 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         title
         excerpt
+        tags {
+          nodes {            
+            name
+          }
+        }     
       }
     }
   }

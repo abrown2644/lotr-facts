@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-wordpress-blog",
+  "name": "lotr-facts",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "fun facts from lotr movies",
   "version": "1.0.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com> and Tyler Barnes <tylerdbarnes@gmail.com>",
+  "author": "Andrew Brown",
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
@@ -19,6 +19,7 @@
     "gatsby-transformer-sharp": "^3.3.0",
     "html-react-parser": "^1.1.1",
     "lodash": "^4.17.20",
+    "mitt": "^3.0.0",
     "postcss": "^8.2.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

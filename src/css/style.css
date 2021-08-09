@@ -1,6 +1,13 @@
 /* CSS Custom Properties Definitions */
 
 :root {
+  /*custom*/
+  --headerHeightMobile: 60px;
+  --headerHeightDesktop: 100%;
+  --headerWidthMobile: 100%;
+  --headerWidthDesktop: 275px;
+  /*custom*/
+
   --maxWidth-none: "none";
   --maxWidth-xs: 20rem;
   --maxWidth-sm: 24rem;
@@ -69,6 +76,52 @@
 :before {
   box-sizing: border-box;
 }
+/* MENU STUFF */
+.menu {  
+  position: absolute;
+  background: limegreen;
+  margin-top: var(--headerHeightMobile);
+  height: calc(100vh - var(--headerHeightMobile));  
+  width: 100%;
+  overflow: auto;
+  z-index: 99;
+}
+.menu ul {
+  list-style-type: none;
+}
+.menu-control {
+  /* padding: 8px; */
+}
+.menu-control:hover{
+  cursor: pointer;
+}
+.bar {
+  width: 35px;
+  height: 5px;
+  background-color: #333;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .bar1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.home-fact {
+  display: flex;
+}
+
+main {
+  padding-top: var(--headerHeightMobile);
+}
 
 html {
   line-height: var(--lineHeight-normal);
@@ -102,7 +155,7 @@ h4,
 h5,
 h6 {
   font-family: var(--font-heading);
-  margin-top: var(--spacing-12);
+  /* margin-top: var(--spacing-12); */
   margin-bottom: var(--spacing-6);
   line-height: var(--lineHeight-tight);
   letter-spacing: -0.025em;
@@ -242,24 +295,32 @@ a:focus {
 /* Custom classes */
 
 .global-wrapper {
-  margin: var(--spacing-0) auto;
+  /* margin: var(--spacing-0) auto;
   max-width: var(--maxWidth-wrapper);
-  padding: var(--spacing-10) var(--spacing-5);
+  padding: var(--spacing-10) var(--spacing-5); */
 }
 
 .global-wrapper[data-is-root-path="true"] .bio {
   margin-bottom: var(--spacing-20);
 }
 
-.global-header {
-  margin-bottom: var(--spacing-12);
+.global-header {  
+  display: flex;
+  justify-content: space-between;
+  background: red;
+  position: fixed;
+  height: var(--headerHeightMobile);
+  width: var(--headerWidthMobile);
+  z-index: 99;
+}
+.global-header .menu-control, .global-header .header-logo {
+  padding: 8px;
 }
 
 .main-heading {
   font-size: var(--fontSize-7);
   margin: 0;
 }
-
 .post-list-item {
   margin-bottom: var(--spacing-8);
   margin-top: var(--spacing-8);
@@ -303,6 +364,9 @@ a:focus {
   height: auto;
   border-radius: 100%;
 }
+.blog-post {
+  margin-bottom: var(--headerHeightMobile);
+}
 
 .blog-post header h1 {
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-4) var(--spacing-0);
@@ -315,6 +379,12 @@ a:focus {
 
 .blog-post-nav ul {
   margin: var(--spacing-0);
+  background: red;
+  position: fixed;
+  height: var(--headerHeightMobile);
+  width: 100%;
+  z-index: 98;
+  bottom: 0;
 }
 
 .gatsby-highlight {
@@ -323,7 +393,7 @@ a:focus {
 
 /* Media queries */
 
-@media (max-width: 42rem) {
+/* @media (max-width: 42rem) {
   blockquote {
     padding: var(--spacing-0) var(--spacing-0) var(--spacing-0) var(--spacing-4);
     margin-left: var(--spacing-0);
@@ -331,5 +401,22 @@ a:focus {
   ul,
   ol {
     list-style-position: inside;
+  }
+} */
+
+@media (min-width: 1025px) {
+  .global-header {           
+    width: var(--headerWidthDesktop);
+    z-index: 99;
+    height: var(--headerHeightDesktop); 
+    flex-direction: column;
+  }
+
+  main {
+    padding-left: calc(var(--headerWidthDesktop) + 40px);
+  }
+  
+  .blog-post-nav {
+    display: none;
   }
 }

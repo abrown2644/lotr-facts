@@ -21,6 +21,18 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
     alt: post.featuredImage?.node?.alt || ``,
   }
 
+  //set fact numbers if present
+  let nextNum, previousNum
+
+  if (previous) {
+    previousNum = previous.tags.nodes[0].name;
+  }
+
+  if (next) {
+    nextNum = next.tags.nodes[0].name;
+  }
+
+
   return (
     <Layout>
       <Seo title={post.title} description={post.excerpt} />
@@ -31,7 +43,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
         itemType="http://schema.org/Article"
       >
         <header>
-          <h1 itemProp="headline">{parse(post.title)}</h1>
+          <h3 itemProp="headline">{parse(post.title)}</h3>
 
           <p>{post.date}</p>
 
@@ -51,9 +63,9 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
 
         <hr />
 
-        <footer>
+        {/* <footer>
           <Bio />
-        </footer>
+        </footer> */}
       </article>
 
       <nav className="blog-post-nav">
@@ -69,7 +81,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           <li>
             {previous && (
               <Link to={previous.uri} rel="prev">
-                ← {parse(previous.title)}
+                ← {previousNum && previousNum}
               </Link>
             )}
           </li>
@@ -77,7 +89,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           <li>
             {next && (
               <Link to={next.uri} rel="next">
-                {parse(next.title)} →
+                {nextNum && nextNum} →
               </Link>
             )}
           </li>
@@ -119,15 +131,25 @@ export const pageQuery = graphql`
     }
 
     # this gets us the previous post by id (if it exists)
-    previous: wpPost(id: { eq: $previousPostId }) {
+    previous: wpPost(id: { eq: $previousPostId }) {      
       uri
       title
+      tags {
+        nodes {          
+          name
+        }
+      }
     }
 
     # this gets us the next post by id (if it exists)
-    next: wpPost(id: { eq: $nextPostId }) {
+    next: wpPost(id: { eq: $nextPostId }) {      
       uri
       title
+      tags {
+        nodes {          
+          name
+        }
+      }
     }
   }
 `
