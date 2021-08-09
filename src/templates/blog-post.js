@@ -75,10 +75,12 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
             flexWrap: `wrap`,
             justifyContent: `space-between`,
             listStyle: `none`,
-            padding: 0,
+            padding: "0",
+            padding: "0 12px",
+            alignItems: "center"
           }}
         >
-          <li>
+          <li style={{ fontSize: "1.5em", color: "black" }}>
             {previous && (
               <Link to={previous.uri} rel="prev">
                 ← {previousNum && previousNum}
@@ -86,7 +88,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
             )}
           </li>
 
-          <li>
+          <li style={{ fontSize: "1.5em", color: "black" }}>
             {next && (
               <Link to={next.uri} rel="next">
                 {nextNum && nextNum} →
