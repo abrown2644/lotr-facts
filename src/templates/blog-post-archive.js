@@ -5,12 +5,14 @@ import parse from "html-react-parser"
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
+import Image from "gatsby-image"
 
 const BlogIndex = ({
   data,
-  pageContext: { nextPagePath, previousPagePath },
+  pageContext: { nextPagePath, previousPagePath, pageNumber, totalPages },
 }) => {
   const posts = data.allWpPost.nodes
+  console.log(posts)
 
   if (!posts.length) {
     return (
@@ -30,37 +32,62 @@ const BlogIndex = ({
 
       {/* <Bio /> */}
 
-      <ol style={{ listStyle: `none` }}>
+      <ol style={{ listStyle: `none`, margin: "0 5px" }}>
         {posts.map(post => {
           const title = post.title
           const factNum = post.tags.nodes[0].name;
+          const featuredImage = {
+            fixed: post.featuredImage?.node?.localFile?.childImageSharp?.fixed,
+            alt: post.featuredImage?.node?.alt || ``,
+          }
+          // console.log(featuredImage.fluid);
 
           return (
-            <li className="fact home-fact" key={post.uri}>
-              <small style={{ marginRight: "10px" }}>{factNum}</small>
-              {/* <article
-                className="post-list-item"
-                itemScope
-                itemType="http://schema.org/Article"
-              > */}
-              <h6 style={{ margin: 0 }}>
-                <Link to={post.uri} itemProp="url">
-                  <span itemProp="headline">{parse(title)}</span>
-                </Link>
-              </h6>
-              {/* </article> */}
+            <li className="fact home-fact-wrapper" key={post.uri}>
+              <Link to={post.uri} itemProp="url" className="home-fact">
+                <div style={{ minWidth: "fit-content" }}>
+                  <p style={{
+                    marginRight: "2px", background: "black", padding: "0 8px", color: "white"
+                  }}>{factNum}</p>
+                </div>
+                {/* if we have a featured image for this post let's display it */}
+                {featuredImage?.fixed && (
+                  <div className="home-fact-image">
+                    <Image
+                      fixed={featuredImage.fixed}
+                      alt={featuredImage.alt}
+                      style={{ marginRight: "15px", borderRadius: "50%" }}
+                    />
+                  </div>
+                )}
+                <div style={{ display: "flex", flexFlow: "column", width: "100%" }}>
+                  <h6 style={{ margin: 0 }}>
+
+                    <span itemProp="headline">{parse(title)}</span>
+
+                  </h6>
+                  <div style={{ alignSelf: "flex-end", paddingRight: "10px", color: "gray" }}>
+                    &#8611;
+                  </div>
+                </div>
+              </Link>
             </li>
           )
         })}
       </ol>
+      <div className="home-page-controls">
+        <div>{previousPagePath && <Link to={previousPagePath}>←</Link>}</div>
+        {/* <div>{
+          Array.from({ length: totalPages }, (_, page) => (
+            <React.Fragment>
 
-      {previousPagePath && (
-        <>
-          <Link to={previousPagePath}>Previous page</Link>
-          <br />
-        </>
-      )}
-      {nextPagePath && <Link to={nextPagePath}>Next page</Link>}
+              <Link className="pageNumber" to={page === 0 ? `/` : `/facts/${page + 1}`} key={page}>{page + 1}</Link>
+
+            </React.Fragment>
+          ))}
+        </div>         */}
+        <div>{nextPagePath && <Link to={nextPagePath}>→</Link>}</div>
+      </div>
     </Layout>
   )
 }
@@ -84,8 +111,20 @@ export const pageQuery = graphql`
           nodes {            
             name
           }
-        }     
-      }
+        }
+        featuredImage {
+          node {
+            altText
+            localFile {
+              childImageSharp {
+                fixed(width: 75, height: 75) {
+                  ...GatsbyImageSharpFixed
+                }
+              }
+            }
+          }
+        }
+      }      
     }
   }
 `

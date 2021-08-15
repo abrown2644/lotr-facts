@@ -61,15 +61,24 @@
   --fontSize-5: 2.074rem;
   --fontSize-6: 2.488rem;
   --fontSize-7: 2.986rem;
-  --color-primary: #005b99;
-  --color-text: #2e353f;
-  --color-text-light: #4f5969;
-  --color-heading: #1a202c;
+
+  --color-primary: #1e201e;
+  --color-secondary: #ffffff;
+  --color-text: #1e201e;
+  --color-text-light: #ffffff;
+  --color-heading: #383838;  
   --color-heading-black: black;
-  --color-accent: #d1dce5;
+  --color-accent: #FFE985;
 }
 
 /* HTML elements */
+/*fonts*/
+@font-face {
+  font-family: 'ringbearer.medium';
+  font-style: normal;
+  font-weight: normal;
+  src: local('ringbearer.medium'), url('../css/fonts/ringbearer.medium.woff') format('woff');
+}
 
 *,
 :after,
@@ -115,14 +124,23 @@
   transform: rotate(45deg) translate(-8px, -8px);
 }
 
+.home-fact-wrapper {
+  border-bottom: 1px solid #dfdfdf;
+}
 .home-fact {
   display: flex;
   margin-top: 12px;
+  align-items: flex-start;
+  text-decoration: none;
+}
+.home-page-controls {
+  display: flex;
+  justify-content: space-evenly;
 }
 
 main {
   padding-top: var(--headerHeightMobile);
-  background: #fffff1;
+  background: var(--color-secondary);
 }
 
 html {
@@ -130,7 +148,7 @@ html {
   font-size: var(--fontSize-root);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #fffff1;
+  /* background: #ebebeb; */
 }
 
 body {
@@ -216,11 +234,11 @@ h6 > a {
 /* Prose */
 
 p {
-  line-height: var(--lineHeight-relaxed);
+  /* line-height: var(--lineHeight-relaxed);
   --baseline-multiplier: 0.179;
-  --x-height-multiplier: 0.35;
+  --x-height-multiplier: 0.35; */
   margin: var(--spacing-0) var(--spacing-0) var(--spacing-8) var(--spacing-0);
-  padding: var(--spacing-0);
+  /* padding: var(--spacing-0); */
 }
 
  ul,
@@ -310,13 +328,26 @@ a:focus {
 .global-header {  
   display: flex;
   justify-content: space-between;  
-  box-shadow: 1px -1px 1px 1px black;  
-  background: #e9f4db;
+  box-shadow: -3px -1px 9px 0px black;
+  background: var(--color-primary);
   position: fixed;
   height: var(--headerHeightMobile);
   width: var(--headerWidthMobile);
   z-index: 99;
 }
+.header-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-logo a {
+  font-family: 'ringbearer.medium';
+  color: white;
+  text-decoration: none;
+  font-size: 1.4em;  
+}
+
 .global-header .menu-control, .global-header .header-logo {
   padding: 8px;
 }
@@ -383,12 +414,15 @@ a:focus {
 
 .blog-post-nav ul {
   margin: var(--spacing-0);
-  background: #e9f4db;
+  background: var(--color-primary);
   position: fixed;
   height: var(--headerHeightMobile);
   width: 100%;
   z-index: 98;
-  bottom: 0;
+  bottom: 0;  
+}
+.blog-post-nav ul li a{
+  color: white;
 }
 
 .gatsby-highlight {
@@ -422,5 +456,9 @@ a:focus {
   
   .blog-post-nav {
     display: none;
+  }
+
+  .home-fact h6 {
+    font-size: 1.6em;
   }
 }

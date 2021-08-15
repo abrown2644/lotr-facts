@@ -81,6 +81,7 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
   return Promise.all(
     postsChunkedIntoArchivePages.map(async (_posts, index) => {
       const pageNumber = index + 1
+      // const numPages = Math.ceil(posts.length / postsPerPage)
 
       const getPagePath = page => {
         if (page > 0 && page <= totalPages) {
@@ -88,7 +89,7 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
           // we want the first page to be "/" and any additional pages
           // to be numbered.
           // "/blog/2" for example
-          return page === 1 ? `/` : `/blog/${page}`
+          return page === 1 ? `/` : `/facts/${page}`
         }
 
         return null
@@ -115,6 +116,8 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
 
           nextPagePath: getPagePath(pageNumber + 1),
           previousPagePath: getPagePath(pageNumber - 1),
+          pageNumber,
+          totalPages
         },
       })
     })
