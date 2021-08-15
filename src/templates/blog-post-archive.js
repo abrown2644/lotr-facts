@@ -12,7 +12,7 @@ const BlogIndex = ({
   pageContext: { nextPagePath, previousPagePath, pageNumber, totalPages },
 }) => {
   const posts = data.allWpPost.nodes
-  console.log(posts)
+  // console.log(posts)
 
   if (!posts.length) {
     return (
