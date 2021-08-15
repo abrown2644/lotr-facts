@@ -33,7 +33,6 @@ const BlogIndex = ({
       <ol style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.title
-          // console.log(posts);
           const factNum = post.tags.nodes[0].name;
 
           return (

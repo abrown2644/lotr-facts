@@ -76,5 +76,12 @@ module.exports = {
      * To learn more, visit: https://gatsby.dev/offline
      */
     // `gatsby-plugin-offline`,
+
+    {
+      resolve: `gatsby-plugin-s3`,
+      options: {
+        bucketName: "lordofthefacts.com",
+      },
+    },
   ],
 }
