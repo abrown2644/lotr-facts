@@ -47,7 +47,7 @@ const BlogIndex = ({
               <Link to={post.uri} itemProp="url" className="home-fact">
                 <div style={{ minWidth: "fit-content" }}>
                   <p style={{
-                    marginRight: "2px", background: "black", padding: "0 8px", color: "white"
+                    margin: "0 2px 0 0", background: "black", padding: "0 8px", color: "white"
                   }}>{factNum}</p>
                 </div>
                 {/* if we have a featured image for this post let's display it */}
@@ -56,7 +56,7 @@ const BlogIndex = ({
                     <Image
                       fixed={featuredImage.fixed}
                       alt={featuredImage.alt}
-                      style={{ marginRight: "15px", borderRadius: "50%" }}
+                      style={{ marginRight: "8px", borderRadius: "50%" }}
                     />
                   </div>
                 )}
@@ -67,7 +67,8 @@ const BlogIndex = ({
 
                   </h6>
                   <div style={{ alignSelf: "flex-end", paddingRight: "10px", color: "gray" }}>
-                    &#8611;
+                    {/* &#8611; */}
+                    ›
                   </div>
                 </div>
               </Link>
@@ -76,7 +77,7 @@ const BlogIndex = ({
         })}
       </ol>
       <div className="home-page-controls">
-        <div>{previousPagePath && <Link to={previousPagePath}>←</Link>}</div>
+        <div style={previousPagePath ? {} : { background: "unset" }}>{previousPagePath && <Link to={previousPagePath}>‹</Link>}</div>
         {/* <div>{
           Array.from({ length: totalPages }, (_, page) => (
             <React.Fragment>
@@ -86,7 +87,7 @@ const BlogIndex = ({
             </React.Fragment>
           ))}
         </div>         */}
-        <div>{nextPagePath && <Link to={nextPagePath}>→</Link>}</div>
+        <div style={nextPagePath ? {} : { background: "unset" }}>{nextPagePath && <Link to={nextPagePath}>›</Link>}</div>
       </div>
     </Layout>
   )

@@ -80,21 +80,22 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
             listStyle: `none`,
             padding: "0",
             padding: "0 12px",
-            alignItems: "center"
+            alignItems: "center",
+            boxShadow: "black 0px 1px 9px 0px"
           }}
         >
-          <li style={{ fontSize: "1.5em", color: "black" }}>
+          <li style={{ fontSize: "2em", color: "black" }}>
             {previous && (
-              <Link to={previous.uri} rel="prev">
-                ← {previousNum && previousNum}
+              <Link to={previous.uri} rel="prev" style={{ textDecoration: "none" }}>
+                ‹ {previousNum && previousNum}
               </Link>
             )}
           </li>
 
-          <li style={{ fontSize: "1.5em", color: "black" }}>
+          <li style={{ fontSize: "2em", color: "black" }}>
             {next && (
-              <Link to={next.uri} rel="next">
-                {nextNum && nextNum} →
+              <Link to={next.uri} rel="next" style={{ textDecoration: "none" }}>
+                {nextNum && nextNum} ›
               </Link>
             )}
           </li>

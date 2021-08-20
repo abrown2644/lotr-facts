@@ -72,12 +72,15 @@ const Layout = ({ isHomePage, children }) => {
           :
           menuState.show &&
           <div className="menu">
-            <p>menu</p>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+              <p style={{ color: "white", textDecoration: "underline" }}>Fact Index</p>
+            </div>
             <ul>
               {posts.map(post => {
                 return (
                   <li>
-                    <Link to={post.uri}>{post.tags.nodes[0].name}. {post.title}</Link>
+                    <p className="factNum">{post.tags.nodes[0].name}</p>
+                    <Link to={post.uri}>{post.title}</Link>
                   </li>
                 )
               })}
