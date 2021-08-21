@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactFragment } from "react"
 import { Link, graphql } from "gatsby"
 import parse from "html-react-parser"
 
@@ -16,23 +16,26 @@ const BlogIndex = ({
 
   if (!posts.length) {
     return (
-      <Layout isHomePage>
+      // <Layout isHomePage>
+      <React.Fragment>
         <Seo title="All Facts" />
         <Bio />
         <p>
           No facts found.
         </p>
-      </Layout>
+      </React.Fragment>
+      // </Layout>
     )
   }
 
   return (
-    <Layout isHomePage>
+    // <Layout isHomePage>
+    <React.Fragment>
       <Seo title="All Facts" />
 
       {/* <Bio /> */}
 
-      <ol style={{ listStyle: `none`, margin: "0 5px" }}>
+      <ol style={{ listStyle: `none`, margin: "0 5px", maxWidth: "1200px" }}>
         {posts.map(post => {
           const title = post.title
           const factNum = post.tags.nodes[0].name;
@@ -89,7 +92,8 @@ const BlogIndex = ({
         </div>         */}
         <div style={nextPagePath ? {} : { background: "unset" }}>{nextPagePath && <Link to={nextPagePath}>›</Link>}</div>
       </div>
-    </Layout>
+    </React.Fragment>
+    // </Layout>
   )
 }
 

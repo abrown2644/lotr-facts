@@ -100,18 +100,17 @@
 }
 .menu ul {
   list-style-type: none;
-  margin: 0 20px;
+  /* margin: 0 20px; */
 }
 .menu li {
   display: flex;
   align-items: baseline;
-  margin-bottom: 8px;
 }
-.menu a {
+.menu a ,.desktop-menu a {
   color:white;
   text-decoration: none;
-  font-size: .8em;
-  font-family:Arial, Helvetica, sans-serif;
+  /* font-size: .8em; */
+  /* font-family:Arial, Helvetica, sans-serif; */
 }
 .menu .factNum {
   margin: 0 10px 0 0;  
@@ -122,17 +121,25 @@
 .menu-control:hover{
   cursor: pointer;
 }
+.mobile-menu-fact {
+  margin-bottom: 8px;
+}
 .factNum{
   color:#a9a9a9;
+  line-height: 1.5;
 }
 .desktop-menu li {
   display: flex;
   align-items: baseline;
+  margin-bottom: 8px;
 }
 .desktop-menu a {
   color: white;
   text-decoration: none;
   font-size: .8em;
+}
+.desktop-menu .factNum {
+  margin: 0 8px 0 0;
 }
 .bar {
   width: 35px;
@@ -472,29 +479,60 @@ a:focus {
   color: white;
 }
 
+.desktop-next {
+  display: none;
+}
+.desktop-previous {
+  display: none;
+}
 .gatsby-highlight {
   margin-bottom: var(--spacing-8);
 }
 
 /* Tabs */
 .react-tabs{
-  flex-grow: 1!important;
-  margin-top: 65px!important;
+  flex-grow: 1 !important;
+  margin-top: 12px !important;
 }
 .react-tabs__tab--selected {
- background: unset!important;
- color: white!important; 
- border-bottom: 1px solid #1e201e!important;
+ background: unset !important;
+ color: white !important; 
+ border-bottom: 1px solid #252725 !important;
 }
 .react-tabs__tab {
-  color: white!important; 
+  color: white !important; 
+}
+.react-tabs__tab-list{
+  display: flex;
 }
 .react-tabs__tab-panel {
-  margin: 8px !important;;
+  padding: 8px 0 8px 8px !important;
+  border-bottom: 1px solid #323432;
+  max-height: 400px;
+  overflow: auto;
 }
+
+/* Scroll bar */
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--color-primary); 
+} 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(78, 78, 78); 
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
 /* Beer Link */
 .beer-link {
-  font-size: 1.5em;
+  font-size: 1.8em;
   border: 2px solid white;
   border-radius: 50%;
   display: flex;
@@ -503,6 +541,10 @@ a:focus {
   width: 50px;
   height: 50px;
 }
+.beer-link:hover {
+  background: rgb(58, 58, 58);
+}
+
 /* Animations */
 @keyframes slideDown {
   from {transform: translate(0px, -670px);}
@@ -525,12 +567,62 @@ a:focus {
   .header-logo a {
     font-size: 1.8em;
   }
-
+  /* Scroll bar */
+  /* width */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
   main {
     padding-left: calc(var(--headerWidthDesktop) + 40px);
     padding-right: 40px;
+    /* display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center; */
   }
-  
+  /* Tabs */
+  .react-tabs{
+    flex-grow: 1 !important;
+    margin-top: 65px !important;
+  }
+  .react-tabs__tab--selected {
+    background: unset !important;
+    color: white !important; 
+    border-bottom: 1px solid #1e201e !important;
+  }
+  .react-tabs__tab {
+    color: white !important; 
+  }
+  .react-tabs__tab-panel {
+    padding: 8px 0 8px 8px !important;
+    border-bottom: 1px solid #323432;
+    max-height: 555px;
+    overflow: auto;
+  }
+  /* Beer Link */
+  .beer-link {
+    font-size: 1.5em;    
+  }
+
+  .article-wrapper {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    align-items: center;
+  }
+  .desktop-next {
+    display: block;
+    margin-left:20px;
+    min-width: fit-content;
+  }
+  .desktop-previous {
+    display: block;
+    margin-right:20px;
+    min-width: fit-content;
+  }
+  .blog-post {
+    max-width: 800px;
+  }
   .blog-post-nav {
     display: none;
   }

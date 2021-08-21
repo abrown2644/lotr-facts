@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactFragment } from "react"
 import { Link, graphql, navigate } from "gatsby"
 import Image from "gatsby-image"
 import parse from "html-react-parser"
@@ -62,44 +62,62 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
 
 
   return (
-    <Layout>
+    // <Layout>
+    <React.Fragment>
       <Seo title={post.title} description={post.excerpt} />
+      <div className="article-wrapper">
+        <div className="desktop-previous">
+          {previous ?
+            <Link to={previous.uri} rel="prev" style={{ textDecoration: "none", fontSize: "3em" }}>
+              ‹ {previousNum && previousNum}
+            </Link>
+            : <p style={{ fontSize: ".5em", margin: "0", color: "white" }}>Swipe <span style={{ fontSize: "1.2em", margin: "0" }}> » </span> or click</p>
+          }
+        </div>
+        <article
+          className="blog-post"
+          itemScope
+          itemType="http://schema.org/Article"
+          style={{ padding: "6px", height: "calc(100vh - 120px)" }}
+          {...handlers}
+        >
+          <header>
+            <div style={{ display: "flex" }}>
+              <h3 itemProp="headline">{parse(post.tags.nodes[0].name)}. </h3>
+              <h5 itemProp="headline">{parse(post.title)}</h5>
+            </div>
+            {/* <p>{post.date}</p> */}
 
-      <article
-        className="blog-post"
-        itemScope
-        itemType="http://schema.org/Article"
-        style={{ padding: "6px", height: "calc(100vh - 120px)" }}
-        {...handlers}
-      >
-        <header>
-          <div style={{ display: "flex" }}>
-            <h3 itemProp="headline">{parse(post.tags.nodes[0].name)}. </h3>
-            <h5 itemProp="headline">{parse(post.title)}</h5>
-          </div>
-          {/* <p>{post.date}</p> */}
+            {/* if we have a featured image for this post let's display it */}
+            {featuredImage?.fluid && (
+              <Image
+                fluid={featuredImage.fluid}
+                alt={featuredImage.alt}
+                style={{ marginBottom: 50 }}
+              />
+            )}
+          </header>
 
-          {/* if we have a featured image for this post let's display it */}
-          {featuredImage?.fluid && (
-            <Image
-              fluid={featuredImage.fluid}
-              alt={featuredImage.alt}
-              style={{ marginBottom: 50 }}
-            />
+          {!!post.content && (
+            <section itemProp="articleBody">{parse(post.content)}</section>
           )}
-        </header>
 
-        {!!post.content && (
-          <section itemProp="articleBody">{parse(post.content)}</section>
-        )}
+          {/* <div {...handlers} style={{ background: "red", height: "200px", width: "100%" }}> You can swipe here </div> */}
+          <hr />
 
-        {/* <div {...handlers} style={{ background: "red", height: "200px", width: "100%" }}> You can swipe here </div> */}
-        <hr />
-
-        {/* <footer>
+          {/* <footer>
           <Bio />
         </footer> */}
-      </article>
+        </article>
+        <div className="desktop-next">
+          {next ?
+            <Link to={next.uri} rel="next" style={{ textDecoration: "none", fontSize: "3em" }}>
+              {nextNum && nextNum} ›
+            </Link>
+            : <Link to={'/'} style={{ fontSize: ".5em", margin: "0", color: "white" }}>Go Home</Link>
+          }
+        </div>
+      </div>
 
       <nav className="blog-post-nav">
         <ul
@@ -133,7 +151,8 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           </li>
         </ul>
       </nav>
-    </Layout>
+      {/* </Layout> */}
+    </React.Fragment>
   )
 }
 
