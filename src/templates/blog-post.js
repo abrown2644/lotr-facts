@@ -1,7 +1,8 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { Link, graphql, navigate } from "gatsby"
 import Image from "gatsby-image"
 import parse from "html-react-parser"
+import { useSwipeable } from 'react-swipeable';
 
 // We're using Gutenberg so we need the block styles
 // these are copied into this project due to a conflict in the postCSS
@@ -20,6 +21,33 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
     fluid: post.featuredImage?.node?.localFile?.childImageSharp?.fluid,
     alt: post.featuredImage?.node?.alt || ``,
   }
+
+  //swipe
+  const handlers = useSwipeable({
+    onSwiped: (eventData) => {
+      // console.log("User Swiped!", eventData);
+      //navigate the swipe
+      if (next && eventData.dir == 'Left') {
+        // console.log('go right');
+        navigate(next.uri);
+      }
+      if (previous && eventData.dir == 'Right') {
+        // console.log('go left');
+        navigate(previous.uri);
+      }
+    },
+    onSwiping: (eventData) => {
+      // console.log(eventData)
+      // if (next && eventData.dir == 'Left') {
+      //   // console.log('go right');
+      //   navigate(next.uri);
+      // }
+      // if (previous && eventData.dir == 'Right') {
+      //   // console.log('go left');
+      //   navigate(previous.uri);
+      // }
+    }
+  });
 
   //set fact numbers if present
   let nextNum, previousNum
@@ -41,7 +69,8 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
         className="blog-post"
         itemScope
         itemType="http://schema.org/Article"
-        style={{ padding: "6px" }}
+        style={{ padding: "6px", height: "calc(100vh - 120px)" }}
+        {...handlers}
       >
         <header>
           <div style={{ display: "flex" }}>
@@ -64,6 +93,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           <section itemProp="articleBody">{parse(post.content)}</section>
         )}
 
+        {/* <div {...handlers} style={{ background: "red", height: "200px", width: "100%" }}> You can swipe here </div> */}
         <hr />
 
         {/* <footer>
@@ -85,19 +115,21 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           }}
         >
           <li style={{ fontSize: "2em", color: "black" }}>
-            {previous && (
+            {previous ?
               <Link to={previous.uri} rel="prev" style={{ textDecoration: "none" }}>
                 ‹ {previousNum && previousNum}
               </Link>
-            )}
+              : <p style={{ fontSize: ".5em", margin: "0", color: "white" }}>Swipe <span style={{ fontSize: "1.2em", margin: "0" }}> » </span> or click</p>
+            }
           </li>
-
+          {/* <p style={{ color: "white", fontFamily: "ringbearer.medium" }}>‹ swipe ›</p> */}
           <li style={{ fontSize: "2em", color: "black" }}>
-            {next && (
+            {next ?
               <Link to={next.uri} rel="next" style={{ textDecoration: "none" }}>
                 {nextNum && nextNum} ›
               </Link>
-            )}
+              : <Link to={'/'} style={{ fontSize: ".5em", margin: "0", color: "white" }}>Go Home</Link>
+            }
           </li>
         </ul>
       </nav>

@@ -95,6 +95,7 @@
   width: 100%;
   overflow: auto;
   z-index: 99;
+  box-shadow: inset 0px 0px 7px 0px #393939;
   /* animation: slideDown .5s; */
 }
 .menu ul {
@@ -161,13 +162,14 @@
 }
 .home-page-controls div {
   background: black;
-  padding: 2px 12px;
+  /* padding: 2px 12px; */
 }
 .home-page-controls a {
   color:white;
   text-decoration: none;
   font-size: 2em;
   line-height: 30px;
+  padding: 2px 12px;
 }
 
 main {
@@ -366,7 +368,7 @@ a:focus {
   height: var(--headerHeightMobile);
   width: var(--headerWidthMobile);
   z-index: 99;
-  background: linear-gradient(0deg, rgba(30, 32, 30, 0.97), rgba(30, 32, 30, 0.98)), url('https://i.imgur.com/xtdp18Z.png');
+  background: linear-gradient(0deg, rgba(30, 32, 30, 0.96), rgba(30, 32, 30, 0.95)), url('https://i.imgur.com/xtdp18Z.png');/*https://i.imgur.com/xtdp18Z.png*/
   background-size: cover;
   /* background-position: 0px -122px; */
   background-position: center;

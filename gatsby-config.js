@@ -59,12 +59,12 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Lord of The Facts`,
-        short_name: `LOTF`,
+        short_name: `LoTF`,
         start_url: `/`,
         background_color: `#1e201e`,
         theme_color: `#1e201e`,
         display: `minimal-ui`,
-        icon: `content/assets/logo.png`,
+        icon: `content/assets/logo_edit2.png`,
       },
     },
 
