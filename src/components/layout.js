@@ -11,6 +11,7 @@ const Layout = ({ isHomePage, children }) => {
   const { height, width } = useWindowDimensions();
   // const { path } = useWindowLocation();
   // const [path, setPath] = useState(window.location.pathname);
+  const isBrowser = () => typeof window !== "undefined"
   const [menuState, setMenuState] = useState({ show: false });
   const [tabIndex, setTabIndex] = useState(0);
 
@@ -29,13 +30,20 @@ const Layout = ({ isHomePage, children }) => {
     return str;
   }
 
-  let path = formatPath(window.location.pathname);
-  document.body.addEventListener('click', () => {
-    requestAnimationFrame(() => {
-      // path !== window.location.pathname && console.log(`url->${formatPath(window.location.pathname)}`);
-      path = formatPath(window.location.pathname);
-    });
-  }, true);
+  //set active menu link via url path 
+  //change this to only add listener on post links later
+  let path;
+  if (isBrowser()) {
+    path = formatPath(window.location.pathname);
+
+    document.body.addEventListener('click', () => {
+      requestAnimationFrame(() => {
+        // path !== window.location.pathname && console.log(`url->${formatPath(window.location.pathname)}`);
+        path = formatPath(window.location.pathname);
+      });
+    }, true);
+  }
+
 
   const data = useStaticQuery(graphql`
     query LayoutQueryAndAllPosts {
