@@ -114,8 +114,7 @@
   font-family:Arial, Helvetica, sans-serif;
 }
 .menu .factNum {
-  margin: 0 10px 0 0;
-  color:#a9a9a9;
+  margin: 0 10px 0 0;  
 }
 .menu-control {
   /* padding: 8px; */
@@ -124,7 +123,16 @@
   cursor: pointer;
 }
 .factNum{
-
+  color:#a9a9a9;
+}
+.desktop-menu li {
+  display: flex;
+  align-items: baseline;
+}
+.desktop-menu a {
+  color: white;
+  text-decoration: none;
+  font-size: .8em;
 }
 .bar {
   width: 35px;
@@ -468,6 +476,33 @@ a:focus {
   margin-bottom: var(--spacing-8);
 }
 
+/* Tabs */
+.react-tabs{
+  flex-grow: 1!important;
+  margin-top: 65px!important;
+}
+.react-tabs__tab--selected {
+ background: unset!important;
+ color: white!important; 
+ border-bottom: 1px solid #1e201e!important;
+}
+.react-tabs__tab {
+  color: white!important; 
+}
+.react-tabs__tab-panel {
+  margin: 8px !important;;
+}
+/* Beer Link */
+.beer-link {
+  font-size: 1.5em;
+  border: 2px solid white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+}
 /* Animations */
 @keyframes slideDown {
   from {transform: translate(0px, -670px);}
@@ -476,18 +511,24 @@ a:focus {
 
 /* Media queries */
 @media (min-width: 1025px) {
-  .global-header {           
+  .global-header {    
+    justify-content: unset;       
     width: var(--headerWidthDesktop);
     z-index: 99;
     height: var(--headerHeightDesktop); 
     flex-direction: column;
-    background: linear-gradient(0deg, rgba(32, 32, 32, 0.938), rgba(36, 36, 36, 0.938)), url('https://i.pinimg.com/originals/c6/56/fc/c656fcdfd70bffb360f074e0e37a191c.jpg') 0 0;
+    /* background: linear-gradient(0deg, rgba(32, 32, 32, 0.938), rgba(36, 36, 36, 0.938)), url('https://i.pinimg.com/originals/c6/56/fc/c656fcdfd70bffb360f074e0e37a191c.jpg') 0 0; */
+    background: var(--color-primary);
     background-size: cover;
     background-position-x: center;
+  }
+  .header-logo a {
+    font-size: 1.8em;
   }
 
   main {
     padding-left: calc(var(--headerWidthDesktop) + 40px);
+    padding-right: 40px;
   }
   
   .blog-post-nav {

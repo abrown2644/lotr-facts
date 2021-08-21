@@ -1,6 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, ReactFragment } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 // import parse from "html-react-parser"
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import 'react-tabs/style/react-tabs.css';
 import useWindowDimensions from '../components/hooks/windowDimensions';
 
 const Layout = ({ isHomePage, children }) => {
@@ -56,8 +58,8 @@ const Layout = ({ isHomePage, children }) => {
           <Link to="/" onClick={() => { menuState.show && setMenuState({ show: false }) }}>Lord of The Facts</Link>
         </div>
         {width > 1025 ?
-          //hide collapsible menu controls on desktop
-          <div>no controls</div>
+          //hide collapsible menu controls on desktop  
+          <React.Fragment></React.Fragment>// nada
           :
           <div className={"menu-control " + (menuState.show ? "change" : "")} onClick={() => { handleMenu() }}>
             <div className={"bar bar1"}></div>
@@ -68,7 +70,41 @@ const Layout = ({ isHomePage, children }) => {
 
         {width > 1025 ?
           //hide collapsible menu on desktop
-          <div>hidden menu</div>
+          <React.Fragment>
+            <Tabs>
+              <TabList>
+                <Tab>Welcome!</Tab>
+                <Tab>Facts</Tab>
+                <Tab>Why?</Tab>
+              </TabList>
+
+              <TabPanel>
+                <h2>Welcome</h2>
+              </TabPanel>
+              <TabPanel>
+                <ul className="desktop-menu">
+                  {posts.map(post => {
+                    return (
+                      <li>
+                        <p className="factNum">{post.tags.nodes[0].name}</p>
+                        <Link to={post.uri}>{post.title}</Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </TabPanel>
+              <TabPanel>
+                <p style={{ color: "white" }}>Because I spent 5 minutes searching for a site that had LOTS of Lord of The Rings facts without any ads.. I couldn't find one.</p>
+              </TabPanel>
+            </Tabs>
+            <div style={{ color: "white", display: "flex", justifyContent: "center", marginBottom: "12px" }}>
+              <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                <Link to={'https://www.buymeacoffee.com/andrewbrown'} target="_blank" className="beer-link">🍺</Link>
+                <div>Buy me a beer</div>
+              </div>
+            </div>
+          </React.Fragment>
+
           :
           menuState.show &&
           <div className="menu">
