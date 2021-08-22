@@ -84,10 +84,7 @@ const Layout = ({ isHomePage, children }) => {
           <Link to="/" onClick={() => { menuState.show && setMenuState({ show: false }) }}>Lord of The Facts</Link>
           {/* <p style={{ color: "white" }}>{path}</p> */}
         </div>
-        {width > 1025 ?
-          //hide collapsible menu controls on desktop  
-          <React.Fragment></React.Fragment>// nada
-          :
+        {width < 1025 &&
           <div className={"menu-control " + (menuState.show ? "change" : "")} onClick={() => { handleMenu() }}>
             <div className={"bar bar1"}></div>
             <div className={"bar bar2"}></div>
@@ -95,7 +92,7 @@ const Layout = ({ isHomePage, children }) => {
           </div>
         }
 
-        {width > 1025 ?
+        {width >= 1025 ?
           //hide collapsible menu on desktop
           <React.Fragment>
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
