@@ -9,7 +9,7 @@ import Image from "gatsby-image"
 
 const Timeline = ({
   data,
-  pageContext: {}
+  pageContext: { }
 }) => {
   const posts = data.allWpPost.nodes
   console.log(posts)
@@ -29,20 +29,24 @@ const Timeline = ({
   return (
     <React.Fragment>
       <Seo title="Timelines" />
+      <p>timelines hur</p>
     </React.Fragment>
   )
 }
 
-export default Timeline 
+export default Timeline
 
 export const pageQuery = graphql`
 query TimelineFacts {
   allWpPost {
-    nodes {
-      excerpt
+    nodes {  
+      title    
       uri
-      date(formatString: "MMMM DD, YYYY")
-      title
+      content
+      fact_info{
+        timestamp
+        movie
+      }      
       tags {
         nodes {
           name
@@ -59,12 +63,7 @@ query TimelineFacts {
             }
           }
         }
-      }
-      categories {
-        nodes {
-          name
-        }
-      }
+      }      
     }
   }
 }

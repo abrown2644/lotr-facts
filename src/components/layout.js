@@ -81,7 +81,7 @@ const Layout = ({ isHomePage, children }) => {
     <div className="global-wrapper" data-is-root-path={isHomePage}>
       <div className="global-header">
         <div className="header-logo">
-          <Link to="/" onClick={() => { menuState.show && setMenuState({ show: false }) }}>Lord of The Facts</Link>
+          <Link to="/" onClick={() => { menuState.show && setMenuState({ show: false }) }}>Lord of the Facts</Link>
           {/* <p style={{ color: "white" }}>{path}</p> */}
         </div>
         {width < 1025 &&
@@ -103,7 +103,7 @@ const Layout = ({ isHomePage, children }) => {
               </TabList>
 
               <TabPanel>
-                <p style={{ color: "white" }}>Welcome to Lord of The Facts! All them good facts about your favorite hairy feet people and beyond.</p>
+                <p style={{ color: "white" }}>Welcome to Lord of the Facts! All them good facts about your favorite hairy feet people and beyond.</p>
               </TabPanel>
               <TabPanel>
                 <ul className="desktop-menu">
@@ -140,7 +140,7 @@ const Layout = ({ isHomePage, children }) => {
               </TabList>
 
               <TabPanel>
-                <p style={{ color: "white" }}>Welcome to Lord of The Facts! All them good facts about your favorite hairy feet people and beyond.</p>
+                <p style={{ color: "white" }}>Welcome to Lord of the Facts! All them good facts about your favorite hairy feet people and beyond.</p>
               </TabPanel>
               <TabPanel>
                 <ul>
