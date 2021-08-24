@@ -25,6 +25,9 @@ exports.createPages = async gatsbyUtilities => {
 
   // And a paginated archive
   await createBlogPostArchive({ posts, gatsbyUtilities })
+
+  // Aaand a timeline
+  await createTimelinesPage({ posts, gatsbyUtilities})
 }
 
 /**
@@ -81,7 +84,6 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
   return Promise.all(
     postsChunkedIntoArchivePages.map(async (_posts, index) => {
       const pageNumber = index + 1
-      // const numPages = Math.ceil(posts.length / postsPerPage)
 
       const getPagePath = page => {
         if (page > 0 && page <= totalPages) {
@@ -124,6 +126,13 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
   )
 }
 
+/* Creates timeline page */
+async function createTimelinesPage({ posts, gatsbyUtilities}){
+  gatsbyUtilities.actions.createPage({
+    path:'/timelines',
+    component: path.resolve(`./src/templates/timelines.js`)
+  })
+}
 /**
  * This function queries Gatsby's GraphQL server and asks for
  * All WordPress blog posts. If there are any GraphQL error it throws an error
