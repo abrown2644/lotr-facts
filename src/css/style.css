@@ -508,7 +508,7 @@ a:focus {
 .react-tabs__tab-panel {
   padding: 8px 0 8px 8px !important;
   border-bottom: 1px solid #323432;
-  max-height: 400px;
+  max-height: calc(100vh - 284px);
   overflow: auto;
 }
 
@@ -530,6 +530,17 @@ a:focus {
   background: #555; 
 }
 
+/* mobile menu bottom */
+.mobile-menu-bottom {
+  color: white;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100%;
+  margin: 12px 0;
+  bottom: 0;
+}
+
 /* Beer Link */
 .beer-link {
   font-size: 1.8em;
@@ -543,6 +554,14 @@ a:focus {
 }
 .beer-link:hover {
   background: rgb(58, 58, 58);
+}
+
+/* timelines */
+.timeline-link {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+  color: white;
 }
 
 /* Animations */
@@ -599,6 +618,7 @@ a:focus {
     max-height: 555px;
     overflow: auto;
   }
+  
   /* Beer Link */
   .beer-link {
     font-size: 1.5em;    

@@ -95,6 +95,12 @@ const Layout = ({ isHomePage, children }) => {
         {width >= 1025 ?
           //hide collapsible menu on desktop
           <React.Fragment>
+            <div className="timeline-link">
+              <Link to={'/timelines'} onClick={() => { setMenuState({ show: false }) }}>
+                ~ Timelines ~
+              </Link>
+            </div>
+
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
               <TabList>
                 <Tab>Welcome!</Tab>
@@ -103,13 +109,13 @@ const Layout = ({ isHomePage, children }) => {
               </TabList>
 
               <TabPanel>
-                <p style={{ color: "white" }}>Welcome to Lord of the Facts! All them good facts about your favorite hairy feet people and beyond.</p>
+                <p style={{ color: "white" }}>Welcome to Lord of the Facts! All them good facts about your favorite hairy feet people.</p>
               </TabPanel>
               <TabPanel>
                 <ul className="desktop-menu">
-                  {posts.map(post => {
+                  {posts.map((post, i) => {
                     return (
-                      <li>
+                      <li key={i}>
                         <p className="factNum" style={path == formatPath(post.title) ? { border: "1px solid white", padding: "0 4px" } : {}}>{post.tags.nodes[0].name}</p>
                         <Link to={post.uri}>{post.title}</Link>
                       </li>
@@ -132,6 +138,12 @@ const Layout = ({ isHomePage, children }) => {
           :
           menuState.show &&
           <div className="menu">
+            <div className="timeline-link">
+              <Link to={'/timelines'} onClick={() => { setMenuState({ show: false }) }}>
+                ~ Timelines ~
+              </Link>
+            </div>
+            
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
               <TabList>
                 <Tab>Welcome!</Tab>
@@ -140,13 +152,13 @@ const Layout = ({ isHomePage, children }) => {
               </TabList>
 
               <TabPanel>
-                <p style={{ color: "white" }}>Welcome to Lord of the Facts! All them good facts about your favorite hairy feet people and beyond.</p>
+                <p style={{ color: "white" }}>Welcome to Lord of the Facts! All them good facts about your favorite hairy feet people.</p>
               </TabPanel>
               <TabPanel>
                 <ul>
-                  {posts.map(post => {
+                  {posts.map((post, i) => {
                     return (
-                      <li className="mobile-menu-fact">
+                      <li key={i} className="mobile-menu-fact">
                         <p className="factNum" style={path == formatPath(post.title) ? { border: "1px solid white", padding: "0 4px" } : {}}>{post.tags.nodes[0].name}</p>
                         <Link onClick={() => { setMenuState({ show: false }) }} to={post.uri}>{post.title}</Link>
                       </li>
@@ -158,26 +170,12 @@ const Layout = ({ isHomePage, children }) => {
                 <p style={{ color: "white" }}>Because I spent 3 minutes searching for a site that had lots of Lord of The Rings facts without any ads.. I couldn't find one.</p>
               </TabPanel>
             </Tabs>
-            <div style={{ color: "white", display: "flex", justifyContent: "center", marginTop: "12px" }}>
+            <div className="mobile-menu-bottom">
               <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                 <Link to={'https://www.buymeacoffee.com/andrewbrown'} target="_blank" title="Buy me a pint!" className="beer-link">🍺</Link>
                 <p style={{ margin: "0", fontSize: ".8em" }}>Buy me a pint!</p>
               </div>
             </div>
-
-            {/* <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-              <p style={{ color: "white", textDecoration: "underline" }}>Fact Index</p>
-            </div>
-            <ul>
-              {posts.map(post => {
-                return (
-                  <li>
-                    <p className="factNum">{post.tags.nodes[0].name}</p>
-                    <Link onClick={() => { setMenuState({ show: false }) }} to={post.uri}>{post.title}</Link>
-                  </li>
-                )
-              })}
-            </ul> */}
           </div>
         }
       </div>
