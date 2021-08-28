@@ -1,12 +1,12 @@
 /* CSS Custom Properties Definitions */
 
 :root {
-  /*custom*/
+  /*Custom*/
   --headerHeightMobile: 60px;
   --headerHeightDesktop: 100%;
   --headerWidthMobile: 100%;
   --headerWidthDesktop: 275px;
-  /*custom*/
+  /*Custom*/
 
   --maxWidth-none: "none";
   --maxWidth-xs: 20rem;
@@ -562,7 +562,9 @@ a:focus {
   display: flex;
   justify-content: center;
   margin: 30px 0;
-  color: white;
+}
+ .timeline-link a {
+    color: white;
 }
 
 /* Animations */
