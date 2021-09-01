@@ -427,7 +427,8 @@ a:focus {
   height: var(--headerHeightMobile);
   width: var(--headerWidthMobile);
   z-index: 99;
-  background: linear-gradient(180deg, rgba(var(--color-primary-bg), .99), rgba(var(--color-tertiary-bg), .95)), url('../../content/assets/fellowship-white.png');    
+  background: url('../../content/assets/fellowship-black.png'),linear-gradient(180deg, rgba(var(--color-primary-bg), 1), rgba(var(--color-primary-bg), .96));    
+  background-blend-mode: darken;
   background-size: cover;
   /* background-position: 0px -122px; */
   background-position: center;
@@ -442,7 +443,7 @@ a:focus {
 .header-logo a {
   font-family: 'ringbearer.medium';
   color: var(--color-text-light);
-  font-size: 1.5em;  
+  font-size: 1.6em;  
 }
 
 .global-header .menu-control, .global-header .header-logo {
