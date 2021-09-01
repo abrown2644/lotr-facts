@@ -43,15 +43,12 @@ const BlogIndex = ({
             fixed: post.featuredImage?.node?.localFile?.childImageSharp?.fixed,
             alt: post.featuredImage?.node?.alt || ``,
           }
-          // console.log(featuredImage.fluid);
 
           return (
             <li className="fact home-fact-wrapper" key={post.uri}>
               <Link to={post.uri} itemProp="url" className="home-fact">
-                <div style={{ minWidth: "fit-content" }}>
-                  <p style={{
-                    margin: "0 2px 0 0", background: "black", padding: "0 8px", color: "white"
-                  }}>{factNum}</p>
+                <div className="factNum">
+                  <p>{factNum}</p>
                 </div>
                 {/* if we have a featured image for this post let's display it */}
                 {featuredImage?.fixed && (
@@ -64,14 +61,14 @@ const BlogIndex = ({
                   </div>
                 )}
                 <div style={{ display: "flex", flexFlow: "column", width: "100%" }}>
-                  <h6 style={{ margin: 0 }}>
+                  <h5 style={{ margin: 0 }}>
 
                     <span itemProp="headline">{parse(title)}</span>
 
-                  </h6>
+                  </h5>
                   <div style={{ alignSelf: "flex-end", paddingRight: "10px", color: "gray" }}>
                     {/* &#8611; */}
-                    ›
+                    {/* › */}
                   </div>
                 </div>
               </Link>

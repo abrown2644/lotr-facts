@@ -1,40 +1,69 @@
-import React from "react"
+import React, { useState } from "react"
 import { Link, graphql } from "gatsby"
-import parse from "html-react-parser"
-
 import Bio from "../components/bio"
-import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Image from "gatsby-image"
-import { Chrono } from "react-chrono";
 
-const Timeline = ({
-  data,
-  pageContext: { }
-}) => {
-  // const isBrowser = () => typeof window !== "undefined"
-  const posts = data.allWpPost.nodes
-  let timelinePosts = [];
 
-  posts.map(post => {
-    // console.log('img: ' + post.featuredImage?.node?.localFile?.childImageSharp?.fixed.src);
-    post.fact_info.movie && timelinePosts.push(
-      {
-        title: post.fact_info.timestamp,
-        cardTitle: post.title,
-        cardSubtitle: post.fact_info.movie,
-        cardDetailedText: post.content?.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, ''),
-        media: {
-          name: post.featuredImage?.node?.altText,
-          source: {
-            url: post.featuredImage?.node?.localFile?.childImageSharp?.fixed.src
-          },
-          type: "IMAGE"
-        }
-      }
-    );
+/* 
+rendered facts not rerendering after state array changes..find out why
+*/
+
+const Timelines = ({ data, pageContext: { } }) => {
+
+  const posts = data.allWpPost.nodes.filter(p => { return p.fact_info.movie !== null })
+
+  const filterFacts = (selectedMovie) => {
+    let filteredArray = [];
+
+    posts.map(post => {
+      post.fact_info.movie === selectedMovie &&
+        filteredArray.push(
+          post
+          // {
+          //   key: post.id,
+          //   title: post.fact_info.timestamp,
+          //   cardTitle: post.title,
+          //   cardSubtitle: post.fact_info.movie,
+          //   cardDetailedText: post.content?.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, ''),
+          //   media: {
+          //     name: post.featuredImage?.node?.altText,
+          //     source: {
+          //       url: post.featuredImage?.node?.localFile?.childImageSharp?.fluid.src
+          //     },
+          //     type: "IMAGE"
+          //   }
+          // }
+        );
+    });
+
+    return filteredArray;
+  }
+
+  const [movieState, setMovieState] = useState({
+    number: 1,
+    title: "The Fellowship of the Ring",
+    facts: filterFacts("The Fellowship of the Ring")
   });
-  // console.log('posts: ', posts);
+
+  const handleMovieClick = (title, number) => {
+    setMovieState({ number: number, title: title, facts: filterFacts(title) })
+  }
+
+  //readmore
+  const readmore = (num) => {
+    console.log(num)
+    const content = document.getElementById(`content-${num}`);
+    const button = document.getElementById(`button-${num}`);
+    console.log(content, button)
+    if (content.style.display === "none") {
+      content.style.display = "flex";
+      button.innerText = "Read Less";
+    } else {
+      content.style.display = "none";
+      button.innerText = "Read More";
+    }
+  }
 
   if (!posts.length) {
     return (
@@ -51,38 +80,70 @@ const Timeline = ({
   return (
     <React.Fragment>
       <Seo title="Timelines" />
-      <p>timelines hur</p>
-      <Chrono
-        items={timelinePosts}
-        mode="VERTICAL_ALTERNATING"
-        scrollable={{ scrollbar: false }}
-        theme={{
-          primary: "black",
-          secondary: "white",
-          cardBgColor: "white",
-          cardForeColor: "grey",
-          titleColor: "black"
-        }}
-      >
-      </Chrono>
+      {/* <div className="bg" style={{
+        // backgroundPosition: 'center',
+        // backgroundAttachment: 'fixed',
+        // backgroundSize: "cover",
+        // backgroundImage: movieState.number === 1 ? `linear-gradient(to right,#d4ad4ea8, #ffffffdb), url(${bg1})`
+        //   : movieState.number === 2 ? `linear-gradient(to right,#031908c2, #ffffffdb), url(${bg2})`
+        //     : `linear-gradient(to right,#d4ad4ea8, #ffffffdb), url(${bg3})`
+      }}> */}
+      <div className="movie-buttons">
+        <button className={movieState.number === 1 && 'bg1 selected'} onClick={() => { handleMovieClick("The Fellowship of the Ring", 1) }}>I</button>
+        <button className={movieState.number === 2 && 'bg2 selected'} onClick={() => { handleMovieClick("The Two Towers", 2) }}>II</button>
+        <button className={movieState.number === 3 && 'bg3 selected'} onClick={() => { handleMovieClick("The Return of the King", 3) }}>III</button>
+      </div>
+      <h4 className="timeline-movie-title">{movieState.title}</h4>
+      {movieState.facts && console.log(movieState.facts)}
+      <div className="timeline-wrapper">
+        <ul className="timeline">
+          {movieState.facts &&
+            movieState.facts.map((fact, i) => {
+              return (
+                <li className="card" key={fact.id}>
+                  <div className="timestamp">
+                    <p>{fact.fact_info.timestamp}</p>
+                    <span>#{fact.tags.nodes[0].name}</span>
+                  </div>
+                  <Image
+                    fluid={fact.featuredImage?.node?.localFile?.childImageSharp?.fluid}
+                    alt={fact.featuredImage?.node?.alt || 'image'}
+                    style={{}}
+                  />
+                  <h5>{fact.title}</h5>
+                  <h6>{fact.fact_info.movie}</h6>
+                  <div className="readmore">
+                    {/* <label for={`toggle-${i}`} className="non-selectable">Read More</label>
+                    <input type="checkbox" id={`toggle-${i}`}></input> */}
+                    <button id={`button-${i}`} onClick={() => { readmore(i) }}>Read More</button>
+                  </div>
+                  <p id={`content-${i}`} class="content" style={{ display: "none" }}>{fact.content?.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, '')}</p>
+                </li>
+              )
+            })
+          }
+        </ul>
+      </div>
+      {/* </div> */}
     </React.Fragment>
   )
 }
 
-export default Timeline
+export default Timelines
 
 export const pageQuery = graphql`
 query TimelineFacts {
   allWpPost(sort: { fields: fact_info___timestamp, order: ASC }){
     nodes {  
+      id
       title    
       uri
       content
       fact_info{
         timestamp
         movie
-      }      
-      tags {
+      }  
+      tags {    
         nodes {
           name
         }
@@ -92,7 +153,10 @@ query TimelineFacts {
           altText
           localFile {
             childImageSharp {
-              fixed(width: 275, height: 275) {
+              fluid(maxWidth: 1000, quality: 100) {
+                ...GatsbyImageSharpFluid_tracedSVG
+              }
+              fixed(width: 75, height: 75) {
                 ...GatsbyImageSharpFixed
               }
             }

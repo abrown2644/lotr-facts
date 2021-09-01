@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
-// import parse from "html-react-parser"
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import useWindowDimensions from '../components/hooks/windowDimensions';
 import useWindowLocation from '../components/hooks/windowLocation';
+import lotfRing from '../../content/assets/lotf-ring.png'
 
 const Layout = ({ isHomePage, children }) => {
 
@@ -82,8 +82,8 @@ const Layout = ({ isHomePage, children }) => {
       <div className="global-header">
         <div className="header-logo">
           <Link to="/" onClick={() => { menuState.show && setMenuState({ show: false }) }}>Lord of the Facts</Link>
-          {/* <p style={{ color: "white" }}>{path}</p> */}
         </div>
+
         {width < 1025 &&
           <div className={"menu-control " + (menuState.show ? "change" : "")} onClick={() => { handleMenu() }}>
             <div className={"bar bar1"}></div>
@@ -95,17 +95,16 @@ const Layout = ({ isHomePage, children }) => {
         {width >= 1025 ?
           //hide collapsible menu on desktop
           <React.Fragment>
-            <div className="timeline-link">
-              <Link to={'/timelines'} onClick={() => { setMenuState({ show: false }) }}>
-                ~ Timelines ~
+            <div className="timeline-link-wrapper">
+              <Link className="timeline-link" to={'/timelines'} onClick={() => { setMenuState({ show: false }) }}>
+                View Timelines
               </Link>
             </div>
-
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
               <TabList>
                 <Tab>Welcome!</Tab>
                 <Tab>Facts</Tab>
-                <Tab>Why?</Tab>
+                <Tab>Help</Tab>
               </TabList>
 
               <TabPanel>
@@ -116,7 +115,7 @@ const Layout = ({ isHomePage, children }) => {
                   {posts.map((post, i) => {
                     return (
                       <li key={i}>
-                        <p className="factNum" style={path == formatPath(post.title) ? { border: "1px solid white", padding: "0 4px" } : {}}>{post.tags.nodes[0].name}</p>
+                        <p className={path === formatPath(post.title) ? "factNum active-factNum" : "factNum"}>{post.tags.nodes[0].name}.</p>
                         <Link to={post.uri}>{post.title}</Link>
                       </li>
                     )
@@ -124,7 +123,7 @@ const Layout = ({ isHomePage, children }) => {
                 </ul>
               </TabPanel>
               <TabPanel>
-                <p style={{ color: "white" }}>Because I spent 3 minutes searching for a site that had lots of Lord of The Rings facts without any ads.. I couldn't find one.</p>
+                <p style={{ color: "white" }}>I need help.</p>
               </TabPanel>
             </Tabs>
             <div style={{ color: "white", display: "flex", justifyContent: "center", marginBottom: "12px" }}>
@@ -138,17 +137,17 @@ const Layout = ({ isHomePage, children }) => {
           :
           menuState.show &&
           <div className="menu">
-            <div className="timeline-link">
-              <Link to={'/timelines'} onClick={() => { setMenuState({ show: false }) }}>
-                ~ Timelines ~
+            <div className="timeline-link-wrapper">
+              <Link className="timeline-link" to={'/timelines'} onClick={() => { setMenuState({ show: false }) }}>
+                View Timelines
               </Link>
             </div>
-            
+
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
               <TabList>
                 <Tab>Welcome!</Tab>
                 <Tab>Facts</Tab>
-                <Tab>Why?</Tab>
+                <Tab>Help</Tab>
               </TabList>
 
               <TabPanel>
@@ -159,7 +158,7 @@ const Layout = ({ isHomePage, children }) => {
                   {posts.map((post, i) => {
                     return (
                       <li key={i} className="mobile-menu-fact">
-                        <p className="factNum" style={path == formatPath(post.title) ? { border: "1px solid white", padding: "0 4px" } : {}}>{post.tags.nodes[0].name}</p>
+                        <p className={path === formatPath(post.title) ? "factNum active-factNum" : "factNum"}>{post.tags.nodes[0].name}.</p>
                         <Link onClick={() => { setMenuState({ show: false }) }} to={post.uri}>{post.title}</Link>
                       </li>
                     )
@@ -167,7 +166,7 @@ const Layout = ({ isHomePage, children }) => {
                 </ul>
               </TabPanel>
               <TabPanel>
-                <p style={{ color: "white" }}>Because I spent 3 minutes searching for a site that had lots of Lord of The Rings facts without any ads.. I couldn't find one.</p>
+                <p style={{ color: "white" }}>I need help.</p>
               </TabPanel>
             </Tabs>
             <div className="mobile-menu-bottom">
