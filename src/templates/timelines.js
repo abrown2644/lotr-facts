@@ -142,6 +142,11 @@ query TimelineFacts {
       fact_info{
         timestamp
         movie
+        source {
+          target
+          title
+          url
+        }
       }  
       tags {    
         nodes {
@@ -153,7 +158,7 @@ query TimelineFacts {
           altText
           localFile {
             childImageSharp {
-              fluid(maxWidth: 1000, quality: 100) {
+              fluid(maxWidth: 300, quality: 100) {
                 ...GatsbyImageSharpFluid_tracedSVG
               }
               fixed(width: 75, height: 75) {

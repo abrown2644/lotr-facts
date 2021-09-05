@@ -1,9 +1,7 @@
-import React, { ReactFragment } from "react"
+import React from "react"
 import { Link, graphql } from "gatsby"
 import parse from "html-react-parser"
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Image from "gatsby-image"
 
@@ -19,7 +17,6 @@ const BlogIndex = ({
       // <Layout isHomePage>
       <React.Fragment>
         <Seo title="All Facts" />
-        <Bio />
         <p>
           No facts found.
         </p>
@@ -35,7 +32,7 @@ const BlogIndex = ({
 
       {/* <Bio /> */}
 
-      <ol style={{ listStyle: `none`, margin: "0 5px", maxWidth: "1200px" }}>
+      <ol className="home-fact-list">
         {posts.map(post => {
           const title = post.title
           const factNum = post.tags.nodes[0].name;

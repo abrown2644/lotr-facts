@@ -1,22 +1,24 @@
-import React, { ReactFragment } from "react"
+import React from "react"
 import { Link, graphql, navigate } from "gatsby"
 import Image from "gatsby-image"
 import parse from "html-react-parser"
 import { useSwipeable } from 'react-swipeable';
+import useWindowDimensions from '../components/hooks/windowDimensions';
 
 // We're using Gutenberg so we need the block styles
 // these are copied into this project due to a conflict in the postCSS
 // version used by the Gatsby and @wordpress packages that causes build
 // failures.
 // @todo update this once @wordpress upgrades their postcss version
-import "../css/@wordpress/block-library/build-style/style.css"
-import "../css/@wordpress/block-library/build-style/theme.css"
+// import "../css/@wordpress/block-library/build-style/style.css"
+// import "../css/@wordpress/block-library/build-style/theme.css"
 
-import Bio from "../components/bio"
-import Layout from "../components/layout"
 import Seo from "../components/seo"
 
 const BlogPostTemplate = ({ data: { previous, next, post } }) => {
+
+  const { height, width } = useWindowDimensions();
+
   const featuredImage = {
     fluid: post.featuredImage?.node?.localFile?.childImageSharp?.fluid,
     alt: post.featuredImage?.node?.alt || ``,
@@ -27,11 +29,11 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
     onSwiped: (eventData) => {
       // console.log("User Swiped!", eventData);
       //navigate the swipe
-      if (next && eventData.dir == 'Left') {
+      if (next && eventData.dir === 'Left') {
         // console.log('go right');
         navigate(next.uri);
       }
-      if (previous && eventData.dir == 'Right') {
+      if (previous && eventData.dir === 'Right') {
         // console.log('go left');
         navigate(previous.uri);
       }
@@ -62,18 +64,9 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
 
 
   return (
-    // <Layout>
     <React.Fragment>
       <Seo title={post.title} description={post.excerpt} />
       <div className="article-wrapper">
-        <div className="desktop-previous">
-          {previous ?
-            <Link to={previous.uri} rel="prev" style={{ textDecoration: "none", fontSize: "3em" }}>
-              ‹ {previousNum && previousNum}
-            </Link>
-            : <p style={{ fontSize: ".5em", margin: "0", color: "white" }}>Swipe <span style={{ fontSize: "1.2em", margin: "0" }}> » </span> or click</p>
-          }
-        </div>
         <article
           className="blog-post"
           itemScope
@@ -82,41 +75,29 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           {...handlers}
         >
           <header>
-            <div style={{ display: "flex" }}>
-              <h3 itemProp="headline">{parse(post.tags.nodes[0].name)}. </h3>
-              <h5 itemProp="headline">{parse(post.title)}</h5>
+            <div style={{ display: "flex", alignItems: "baseline" }}>
+              <h2 itemProp="headline" className="blog-post-number">{parse(post.tags.nodes[0].name)}. </h2>
+              <h5 itemProp="headline" className="blog-post-title">{parse(post.title)}</h5>
             </div>
-            {/* <p>{post.date}</p> */}
 
             {/* if we have a featured image for this post let's display it */}
             {featuredImage?.fluid && (
               <Image
                 fluid={featuredImage.fluid}
                 alt={featuredImage.alt}
-                style={{ marginBottom: 50 }}
+                style={{ marginBottom: 40 }}
               />
             )}
           </header>
-
+          {post.fact_info.source &&
+            <div className="fact-attribution">{<Link to={post.fact_info.source.url} target="_blank"> {post.fact_info.source.title}</Link>} </div>
+          }
+          <hr style={{ marginBottom: "25px" }} />
           {!!post.content && (
-            <section itemProp="articleBody">{parse(post.content)}</section>
+            <section itemProp="articleBody" className="blog-post-body">{parse(post.content)}</section>
           )}
 
-          {/* <div {...handlers} style={{ background: "red", height: "200px", width: "100%" }}> You can swipe here </div> */}
-          <hr />
-
-          {/* <footer>
-          <Bio />
-        </footer> */}
         </article>
-        <div className="desktop-next">
-          {next ?
-            <Link to={next.uri} rel="next" style={{ textDecoration: "none", fontSize: "3em" }}>
-              {nextNum && nextNum} ›
-            </Link>
-            : <Link to={'/'} style={{ fontSize: ".5em", margin: "0", color: "white" }}>Go Home</Link>
-          }
-        </div>
       </div>
 
       <nav className="blog-post-nav">
@@ -126,32 +107,32 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
             flexWrap: `wrap`,
             justifyContent: `space-between`,
             listStyle: `none`,
-            padding: "0",
             padding: "0 12px",
             alignItems: "center",
-            boxShadow: "black 0px 1px 9px 0px"
+            boxShadow: "black 0px 1px 9px 0px",
+            // minWidth: "450px"
           }}
         >
           <li style={{ fontSize: "2em", color: "black" }}>
             {previous ?
-              <Link to={previous.uri} rel="prev" style={{ textDecoration: "none" }}>
+              <Link to={previous.uri} rel="prev" style={{ textDecoration: "none", margin: "0 80px 0 0" }}>
                 ‹ {previousNum && previousNum}
               </Link>
-              : <p style={{ fontSize: ".5em", margin: "0", color: "white" }}>Swipe <span style={{ fontSize: "1.2em", margin: "0" }}> » </span> or click</p>
+              : width > 1025 ? <p style={{ fontSize: ".5em", margin: "0 80px 0 0", color: "white" }}>Begin</p>
+                : <p style={{ fontSize: ".5em", margin: "0 80px 0 0", color: "white" }}>Swipe <span style={{ fontSize: "1.2em", margin: "0" }}> » </span> or click</p>
             }
           </li>
           {/* <p style={{ color: "white", fontFamily: "ringbearer.medium" }}>‹ swipe ›</p> */}
-          <li style={{ fontSize: "2em", color: "black" }}>
+          <li style={{ fontSize: "2em", color: "black", margin: "0 0 0 80px" }}>
             {next ?
               <Link to={next.uri} rel="next" style={{ textDecoration: "none" }}>
                 {nextNum && nextNum} ›
               </Link>
-              : <Link to={'/'} style={{ fontSize: ".5em", margin: "0", color: "white" }}>Go Home</Link>
+              : <Link to={'/'} style={{ fontSize: ".5em", margin: "0 0 0 80px", color: "white" }}>Go Home</Link>
             }
           </li>
         </ul>
       </nav>
-      {/* </Layout> */}
     </React.Fragment>
   )
 }
@@ -178,12 +159,22 @@ export const pageQuery = graphql`
         }
       }
 
+      fact_info{
+        timestamp
+        movie
+        source {
+          target
+          title
+          url
+        }
+      }
+
       featuredImage {
         node {
           altText
           localFile {
             childImageSharp {
-              fluid(maxWidth: 1000, quality: 100) {
+              fluid(maxWidth: 400, quality: 100) {
                 ...GatsbyImageSharpFluid_tracedSVG
               }
             }

@@ -3,14 +3,10 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import useWindowDimensions from '../components/hooks/windowDimensions';
-import useWindowLocation from '../components/hooks/windowLocation';
-import lotfRing from '../../content/assets/lotf-ring.png'
 
 const Layout = ({ isHomePage, children }) => {
 
   const { height, width } = useWindowDimensions();
-  // const { path } = useWindowLocation();
-  // const [path, setPath] = useState(window.location.pathname);
   const isBrowser = () => typeof window !== "undefined"
   const [menuState, setMenuState] = useState({ show: false });
   const [tabIndex, setTabIndex] = useState(0);
@@ -44,7 +40,6 @@ const Layout = ({ isHomePage, children }) => {
     }, true);
   }
 
-
   const data = useStaticQuery(graphql`
     query LayoutQueryAndAllPosts {
 
@@ -73,9 +68,10 @@ const Layout = ({ isHomePage, children }) => {
     }
   `)
   const posts = data.posts.nodes;
-
-  // console.log('data: ', data);
-  // console.log(`width:${width}, height:${height}`);
+  const messages = {
+    welcome: "<span class='message-entry'>One fact site to rule them all, One fact site to find them, One fact site to bring them all and on the interwebs bind them</span>.<br><br>May this site serve as your pocket guide to all those precious Lord of the Rings facts that no one asked you to share on movie night.. <b>Study them</b>. <b>Know them</b>.<br><br>",
+    team: "Looking to join the cause and add a fact? Shoot me an email or drop a comment. Contributors will be added to a special team page!"
+  }
 
   return (
     <div className="global-wrapper" data-is-root-path={isHomePage}>
@@ -97,18 +93,19 @@ const Layout = ({ isHomePage, children }) => {
           <React.Fragment>
             <div className="timeline-link-wrapper">
               <Link className="timeline-link" to={'/timelines'} onClick={() => { setMenuState({ show: false }) }}>
-                View Timelines
+                Movie Timelines
               </Link>
             </div>
             <Tabs selectedIndex={tabIndex} onSelect={index => setTabIndex(index)}>
               <TabList>
                 <Tab>Welcome!</Tab>
                 <Tab>Facts</Tab>
-                <Tab>Help</Tab>
+                {/* <Tab>Team</Tab> */}
               </TabList>
 
               <TabPanel>
-                <p style={{ color: "white" }}>Welcome to Lord of the Facts! All them good facts about your favorite hairy feet people.</p>
+                <p className="message-text" dangerouslySetInnerHTML={{ __html: messages.welcome }}></p>
+                <p className="message-text">Check out the <Link to={'/timelines'} onClick={() => { setMenuState({ show: false }) }} className='message-link'>Movie Timeline</Link> to follow along and know exactly when Aragorn breaks his toes and exactly how many toes he broke! Along the way you'll also make everyone around you sick with disgust..you're welcome!</p>
               </TabPanel>
               <TabPanel>
                 <ul className="desktop-menu">
@@ -122,9 +119,24 @@ const Layout = ({ isHomePage, children }) => {
                   })}
                 </ul>
               </TabPanel>
-              <TabPanel>
-                <p style={{ color: "white" }}>I need help.</p>
-              </TabPanel>
+              {/* <TabPanel>
+                <p className="message-text" dangerouslySetInnerHTML={{ __html: messages.team }}></p>
+                <form className="contact-form" method="post" action="">
+                  <label>
+                    Email
+                    <input type="email" name="email" />
+                  </label>
+                  <label>
+                    Name
+                    <input type="text" name="name" />
+                  </label>
+                  <label>
+                    Message
+                    <textarea type="text" style={{ width: "100%", height: "160px", resize: "none" }} name="message" />
+                  </label>
+                  <button type="submit">Send</button>
+                </form>
+              </TabPanel> */}
             </Tabs>
             <div style={{ color: "white", display: "flex", justifyContent: "center", marginBottom: "12px" }}>
               <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
@@ -139,7 +151,7 @@ const Layout = ({ isHomePage, children }) => {
           <div className="menu">
             <div className="timeline-link-wrapper">
               <Link className="timeline-link" to={'/timelines'} onClick={() => { setMenuState({ show: false }) }}>
-                View Timelines
+                Movie Timelines
               </Link>
             </div>
 
@@ -147,11 +159,12 @@ const Layout = ({ isHomePage, children }) => {
               <TabList>
                 <Tab>Welcome!</Tab>
                 <Tab>Facts</Tab>
-                <Tab>Help</Tab>
+                {/* <Tab>Team</Tab> */}
               </TabList>
 
               <TabPanel>
-                <p style={{ color: "white" }}>Welcome to Lord of the Facts! All them good facts about your favorite hairy feet people.</p>
+                <p className="message-text" dangerouslySetInnerHTML={{ __html: messages.welcome }}></p>
+                <p className="message-text">Check out the <Link to={'/timelines'} onClick={() => { setMenuState({ show: false }) }} className='message-link'>Movie Timeline</Link> to follow along and know exactly when Aragorn breaks his toes and exactly how many toes he broke! Along the way you'll also make everyone around you sick with disgust..you're welcome!</p>
               </TabPanel>
               <TabPanel>
                 <ul>
@@ -165,9 +178,15 @@ const Layout = ({ isHomePage, children }) => {
                   })}
                 </ul>
               </TabPanel>
-              <TabPanel>
-                <p style={{ color: "white" }}>I need help.</p>
-              </TabPanel>
+              {/* <TabPanel>
+                <p className="message-text" dangerouslySetInnerHTML={{ __html: messages.team }}></p>
+                <form className="contact-form" method="post" action="">
+                  <input type="email" name="email" placeholder="Email" />
+                  <input type="text" name="name" placeholder="Name" />
+                  <textarea type="text" style={{ width: "100%", height: "160px", resize: "none" }} name="message" placeholder="Message" />
+                  <button type="submit">Send</button>
+                </form>
+              </TabPanel> */}
             </Tabs>
             <div className="mobile-menu-bottom">
               <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
@@ -178,27 +197,7 @@ const Layout = ({ isHomePage, children }) => {
           </div>
         }
       </div>
-      {/* <header className="global-header">
-        {isHomePage ? (
-          <h1 className="main-heading">
-            <Link to="/">{parse(title)}</Link>
-          </h1>
-        ) : (
-          <Link className="header-link-home" to="/">
-            {title}
-          </Link>
-        )}
-      </header> */}
-
       <main>{children}</main>
-
-      {/* <footer>
-        © {new Date().getFullYear()}, Built with
-        {` `}
-        <a href="https://www.gatsbyjs.com">Gatsby</a>
-        {` `}
-        And <a href="https://wordpress.org/">WordPress</a>
-      </footer> */}
     </div>
   )
 }
