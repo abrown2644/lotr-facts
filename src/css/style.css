@@ -136,6 +136,7 @@
 }
 .menu a ,.desktop-menu a {
   color:var(--color-text-light);
+  font-family: var(--font-heading);
 }
 .home-fact .factNum{
   line-height: unset;
@@ -268,8 +269,7 @@
   box-shadow: 0px -1px 4px 0px #e6e6e66e;
 }
 .home-page-controls div {
-  /* background: var(--color-primary); */
-  /* padding: 2px 12px; */
+  margin: 0px 30px;
 }
 .home-page-controls a {
   color:var(--color-text-light);
