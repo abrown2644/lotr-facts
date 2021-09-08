@@ -6,6 +6,11 @@
  *
  */
 
+require("dotenv").config({
+  // path: `.env.${process.env.NODE_ENV}`,
+  path: ".env"
+});
+
 module.exports = {
   /**
    * Adding plugins to this array adds them to your Gatsby site.
@@ -86,7 +91,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-s3`,
       options: {
-        bucketName: "lordofthefacts.com",
+        bucketName: process.env.Bucket_Name,
       },
     },
   ],
