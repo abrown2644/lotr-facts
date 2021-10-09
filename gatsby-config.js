@@ -94,5 +94,11 @@ module.exports = {
         bucketName: process.env.Bucket_Name,
       },
     },
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `lordofthefacts`
+      }
+    },
   ],
 }

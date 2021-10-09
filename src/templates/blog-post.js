@@ -3,6 +3,7 @@ import { Link, graphql, navigate } from "gatsby"
 import Image from "gatsby-image"
 import parse from "html-react-parser"
 import { useSwipeable } from 'react-swipeable';
+import { Disqus } from 'gatsby-plugin-disqus';
 import useWindowDimensions from '../components/hooks/windowDimensions';
 
 // We're using Gutenberg so we need the block styles
@@ -97,6 +98,13 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
             <section itemProp="articleBody" className="blog-post-body">{parse(post.content)}</section>
           )}
 
+          <Disqus style={{ paddingBottom: "100px" }}
+            config={{
+              url: 'https://lordofthefacts.coms' + post.uri,
+              identifier: post.id,
+              title: post.title,
+            }}
+          />
         </article>
       </div>
 
@@ -152,6 +160,8 @@ export const pageQuery = graphql`
       excerpt
       content
       title
+      uri
+      slug
       date(formatString: "MMMM DD, YYYY")
       tags {
         nodes {          
