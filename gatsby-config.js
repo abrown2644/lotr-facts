@@ -66,10 +66,10 @@ module.exports = {
         name: `Lord of the Facts`,
         short_name: `LotF`,
         start_url: `/`,
-        background_color: `#1e201e`,
-        theme_color: `#1e201e`,
+        background_color: `#ffffff`,
+        theme_color: `#A9BA5A`,
         display: `minimal-ui`,
-        icon: `content/assets/logo_edit2.png`,
+        icon: `content/assets/hobbit_hole.png`,
       },
     },
 

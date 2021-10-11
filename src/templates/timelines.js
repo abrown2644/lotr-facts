@@ -89,9 +89,9 @@ const Timelines = ({ data, pageContext: { } }) => {
         //     : `linear-gradient(to right,#d4ad4ea8, #ffffffdb), url(${bg3})`
       }}> */}
       <div className="movie-buttons">
-        <button className={movieState.number === 1 && 'bg1 selected'} onClick={() => { handleMovieClick("The Fellowship of the Ring", 1) }}>I</button>
-        <button className={movieState.number === 2 && 'bg2 selected'} onClick={() => { handleMovieClick("The Two Towers", 2) }}>II</button>
-        <button className={movieState.number === 3 && 'bg3 selected'} onClick={() => { handleMovieClick("The Return of the King", 3) }}>III</button>
+        <button className={movieState.number === 1 && 'bg1 selected'} onClick={() => { handleMovieClick("The Fellowship of the Ring", 1) }}><span>I</span></button>
+        <button className={movieState.number === 2 && 'bg2 selected'} onClick={() => { handleMovieClick("The Two Towers", 2) }}><span>II</span></button>
+        <button className={movieState.number === 3 && 'bg3 selected'} onClick={() => { handleMovieClick("The Return of the King", 3) }}><span>III</span></button>
       </div>
       <h4 className="timeline-movie-title">{movieState.title}</h4>
       {movieState.facts && console.log(movieState.facts)}

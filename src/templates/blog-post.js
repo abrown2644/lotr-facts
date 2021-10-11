@@ -72,7 +72,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           className="blog-post"
           itemScope
           itemType="http://schema.org/Article"
-          style={{ padding: "6px", height: "calc(100vh - 120px)" }}
+          style={{ padding: "10px", height: "calc(100vh - 120px)" }}
           {...handlers}
         >
           <header>
