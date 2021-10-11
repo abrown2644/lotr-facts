@@ -159,7 +159,7 @@ query TimelineFacts {
           localFile {
             childImageSharp {
               fluid(maxWidth: 300, quality: 100) {
-                ...GatsbyImageSharpFluid_tracedSVG
+                ...GatsbyImageSharpFluid
               }
               fixed(width: 75, height: 75) {
                 ...GatsbyImageSharpFixed
