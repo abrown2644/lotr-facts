@@ -67,13 +67,12 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
   return (
     <React.Fragment>
       <Seo title={post.title} description={post.excerpt} />
-      <div className="article-wrapper">
+      <div className="article-wrapper" {...handlers}>
         <article
           className="blog-post"
           itemScope
           itemType="http://schema.org/Article"
           style={{ padding: "10px", height: "calc(100vh - 120px)" }}
-          {...handlers}
         >
           <header>
             <div style={{ display: "flex", alignItems: "baseline" }}>

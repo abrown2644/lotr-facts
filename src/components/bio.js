@@ -58,8 +58,8 @@ const Bio = () => {
   }
 
   return (
-    <div style={{ maxWidth: "900px", padding: "10px" }}>
-      <h2 style={{ textAlign: "center", fontSize: "3em", fontFamily: "aniron", marginTop: "15px", textDecoration: "underline" }}>Welcome!</h2>
+    <div style={{ maxWidth: "900px", padding: "15px" }}>
+      <h2 style={{ textAlign: "center", fontSize: "2.8em", fontFamily: "aniron", marginTop: "15px", textDecoration: "underline" }}>Welcome!</h2>
       <p className="message-text" dangerouslySetInnerHTML={{ __html: messages.welcome }}></p>
       <p className="message-text">Check out the <Link to={'/timelines'} className='message-link'>Movie Timeline</Link> to follow along and know exactly when Aragorn breaks his toes and exactly how many toes he broke! Along the way you'll also make everyone around you sick with disgust..you're welcome!</p>
       <br />
