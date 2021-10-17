@@ -27,7 +27,7 @@ exports.createPages = async gatsbyUtilities => {
   await createBlogPostArchive({ posts, gatsbyUtilities })
 
   // Aaand a timeline
-  await createTimelinesPage({ posts, gatsbyUtilities})
+  await createTimelinesPage({ posts, gatsbyUtilities })
 }
 
 /**
@@ -91,7 +91,7 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
           // we want the first page to be "/" and any additional pages
           // to be numbered.
           // "/blog/2" for example
-          return page === 1 ? `/` : `/facts/${page}`
+          return page === 1 ? `/facts` : `/facts/${page}`
         }
 
         return null
@@ -127,9 +127,9 @@ async function createBlogPostArchive({ posts, gatsbyUtilities }) {
 }
 
 /* Creates timeline page */
-async function createTimelinesPage({ posts, gatsbyUtilities}){
+async function createTimelinesPage({ posts, gatsbyUtilities }) {
   gatsbyUtilities.actions.createPage({
-    path:'/timelines',
+    path: '/timelines',
     component: path.resolve(`./src/templates/timelines.js`)
   })
 }

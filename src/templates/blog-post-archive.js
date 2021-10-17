@@ -5,7 +5,7 @@ import parse from "html-react-parser"
 import Seo from "../components/seo"
 import Image from "gatsby-image"
 
-const BlogIndex = ({
+const BlogArchive = ({
   data,
   pageContext: { nextPagePath, previousPagePath, pageNumber, totalPages },
 }) => {
@@ -91,7 +91,7 @@ const BlogIndex = ({
   )
 }
 
-export default BlogIndex
+export default BlogArchive
 
 export const pageQuery = graphql`
   query WordPressPostArchive($offset: Int!, $postsPerPage: Int!) {

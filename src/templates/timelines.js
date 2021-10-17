@@ -103,7 +103,7 @@ const Timelines = ({ data, pageContext: { } }) => {
                 <li className="card" key={fact.id}>
                   <div className="timestamp">
                     <p>{fact.fact_info.timestamp}</p>
-                    <span>#{fact.tags.nodes[0].name}</span>
+                    <span>#<Link to={fact.uri}>{fact.tags.nodes[0].name}</Link></span>
                   </div>
                   <Image
                     fluid={fact.featuredImage?.node?.localFile?.childImageSharp?.fluid}
