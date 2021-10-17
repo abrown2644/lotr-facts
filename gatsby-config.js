@@ -64,12 +64,12 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `Lord of the Facts`,
-        short_name: `LotF`,
+        short_name: `Lotf`,
         start_url: `/`,
         background_color: `#131313`,
         theme_color: `#131313`,
         display: `minimal-ui`,
-        icon: `content/assets/hobbit_hole.png`,
+        icon: `content/assets/logoV3.png`,
       },
     },
 
