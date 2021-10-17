@@ -3,19 +3,19 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import GithubIcon from "../../content/assets/github.svg"
 
 const Bio = () => {
-  const { author } = useStaticQuery(graphql`
-    query BioQuery {
-      # if there was more than one user, this would need to be filtered
-      author: wpUser {
-        firstName
-        twitter: name
-        description
-        avatar {
-          url
-        }
-      }
-    }
-  `)
+  // const { author } = useStaticQuery(graphql`
+  //   query BioQuery {
+  //     # if there was more than one user, this would need to be filtered
+  //     author: wpUser {
+  //       firstName
+  //       twitter: name
+  //       description
+  //       avatar {
+  //         url
+  //       }
+  //     }
+  //   }
+  // `)
   const me = {
     name: "Abrown2644",
     github: "https://github.com/abrown2644",
@@ -81,9 +81,9 @@ const Bio = () => {
           </Link>
         )}
         {team && (
-          team.map(member => {
+          team.map((member, i) => {
             return (
-              <Link target={"_blank"} to={member.github}>
+              <Link key={i} target={"_blank"} to={member.github}>
                 <div className={"badges"}>
 
                 </div>
@@ -102,7 +102,7 @@ const Bio = () => {
       <hr />
       <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
         <Link to={"https://github.com/abrown2644/lotr-facts"}>
-          <img src={GithubIcon} height="50" />
+          <img alt={'github'} src={GithubIcon} height="50" />
         </Link>
       </div>
     </div>

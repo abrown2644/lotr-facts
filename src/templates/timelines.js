@@ -9,7 +9,7 @@ import Image from "gatsby-image"
 rendered facts not rerendering after state array changes..find out why
 */
 
-const Timelines = ({ data, pageContext: { } }) => {
+const Timelines = ({ data }) => {
 
   const posts = data.allWpPost.nodes.filter(p => { return p.fact_info.movie !== null })
 
@@ -52,10 +52,10 @@ const Timelines = ({ data, pageContext: { } }) => {
 
   //readmore
   const readmore = (num) => {
-    console.log(num)
+    // console.log(num)
     const content = document.getElementById(`content-${num}`);
     const button = document.getElementById(`button-${num}`);
-    console.log(content, button)
+    // console.log(content, button)
     if (content.style.display === "none") {
       content.style.display = "flex";
       button.innerText = "Read Less";
@@ -94,7 +94,7 @@ const Timelines = ({ data, pageContext: { } }) => {
         <button className={movieState.number === 3 && 'bg3 selected'} onClick={() => { handleMovieClick("The Return of the King", 3) }}><span>III</span></button>
       </div>
       <h4 className="timeline-movie-title">{movieState.title}</h4>
-      {movieState.facts && console.log(movieState.facts)}
+      {/* {movieState.facts && console.log(movieState.facts)} */}
       <div className="timeline-wrapper">
         <ul className="timeline">
           {movieState.facts &&
@@ -117,7 +117,7 @@ const Timelines = ({ data, pageContext: { } }) => {
                     <input type="checkbox" id={`toggle-${i}`}></input> */}
                     <button id={`button-${i}`} onClick={() => { readmore(i) }}>Read More</button>
                   </div>
-                  <p id={`content-${i}`} class="content" style={{ display: "none" }}>{fact.content?.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, '')}</p>
+                  <p id={`content-${i}`} className="content" style={{ display: "none" }}>{fact.content?.replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, '')}</p>
                 </li>
               )
             })

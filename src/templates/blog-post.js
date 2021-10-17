@@ -6,14 +6,6 @@ import { useSwipeable } from 'react-swipeable';
 import { Disqus } from 'gatsby-plugin-disqus';
 import useWindowDimensions from '../components/hooks/windowDimensions';
 
-// We're using Gutenberg so we need the block styles
-// these are copied into this project due to a conflict in the postCSS
-// version used by the Gatsby and @wordpress packages that causes build
-// failures.
-// @todo update this once @wordpress upgrades their postcss version
-// import "../css/@wordpress/block-library/build-style/style.css"
-// import "../css/@wordpress/block-library/build-style/theme.css"
-
 import Seo from "../components/seo"
 
 const BlogPostTemplate = ({ data: { previous, next, post } }) => {
@@ -72,7 +64,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           className="blog-post"
           itemScope
           itemType="http://schema.org/Article"
-          style={{ padding: "10px", height: "calc(100vh - 120px)" }}
+          style={{ padding: "10px" }}
         >
           <header>
             <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -97,7 +89,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
             <section itemProp="articleBody" className="blog-post-body">{parse(post.content)}</section>
           )}
 
-          <Disqus style={{ paddingBottom: "100px" }}
+          <Disqus style={{ paddingBottom: "100px" }} {...handlers}
             config={{
               url: 'https://lordofthefacts.coms' + post.uri,
               identifier: post.id,
