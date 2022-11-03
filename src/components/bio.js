@@ -45,7 +45,7 @@ const Bio = () => {
     {
       name: "Gandalf",
       github: "#",
-      avatar: "https://dominiquemakowski.github.io/authors/gandalf/avatar_hu26b06be530b08e9b91eb9c90bbd4ed3d_163032_270x270_fill_q90_lanczos_center.jpg",
+      avatar: "https://i.pinimg.com/280x280_RS/fc/f0/3c/fcf03c4c16fce85434a0ea55f1cd4c55.jpg",
       dev: true,
       writer: true,
       supporter: true,
