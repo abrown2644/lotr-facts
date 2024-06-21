@@ -855,6 +855,7 @@ a:focus {
   border-radius: var(--border-round-heavy);
   box-shadow: 7px -1px 3px 0px #0000002e;
   background: linear-gradient(to right, white, rgb(var(--color-secondary)));
+  max-width: 700px;
 }
 .timeline .card .content {  
   max-height: 90px;

@@ -105,11 +105,29 @@ const Timelines = ({ data }) => {
                     <p>{fact.fact_info.timestamp}</p>
                     <span>#<Link to={fact.uri}>{fact.tags.nodes[0].name}</Link></span>
                   </div>
-                  <Image
-                    fluid={fact.featuredImage?.node?.localFile?.childImageSharp?.fluid}
-                    alt={fact.featuredImage?.node?.alt || 'image'}
-                    style={{}}
-                  />
+                  <div style={{
+                    width: '100%',
+                    maxWidth: '800px',
+                    height: '0',
+                    paddingBottom: '50%',  // Aspect ratio: 400px/800px = 0.5
+                    overflow: 'hidden',
+                    position: 'relative',
+                    marginBottom: '20px'
+                  }}>
+                    <Image
+                      fluid={fact.featuredImage?.node?.localFile?.childImageSharp?.fluid}
+                      alt={fact.featuredImage?.node?.alt || 'image'}
+                      style={{ 
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0'
+                      }}
+                    />
+                  </div>
+
                   <h5>{fact.title}</h5>
                   <h6>{fact.fact_info.movie}</h6>
                   <div className="readmore">

@@ -74,11 +74,28 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
 
             {/* if we have a featured image for this post let's display it */}
             {featuredImage?.fluid && (
-              <Image
-                fluid={featuredImage.fluid}
-                alt={featuredImage.alt}
-                style={{ marginBottom: 40 }}
-              />
+              <div style={{
+                width: '100%',
+                maxWidth: '800px',
+                height: '0',
+                paddingBottom: '50%',  // Aspect ratio: 400px/800px = 0.5
+                overflow: 'hidden',
+                position: 'relative',
+                marginBottom: '20px'
+              }}>
+                <Image
+                  fluid={featuredImage.fluid}
+                  alt={featuredImage.alt}
+                  style={{ 
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    position: 'absolute',
+                    top: '0',
+                    left: '0'
+                  }}
+                />
+              </div>
             )}
           </header>
           {post.fact_info.source &&
@@ -114,7 +131,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
         >
           <li style={{ fontSize: "2em", color: "black" }}>
             {previous ?
-              <Link to={previous.uri} rel="prev" style={{ textDecoration: "none", margin: "0 80px 0 0" }}>
+              <Link to={previous.uri + `#${previousNum}`} rel="prev" style={{ textDecoration: "none", margin: "0 80px 0 0" }}>
                 ‹ {previousNum && previousNum}
               </Link>
               : width > 1025 ? <p style={{ fontSize: ".5em", margin: "0 80px 0 0", color: "white" }}>Begin</p>
@@ -124,7 +141,7 @@ const BlogPostTemplate = ({ data: { previous, next, post } }) => {
           {/* <p style={{ color: "white", fontFamily: "ringbearer.medium" }}>‹ swipe ›</p> */}
           <li style={{ fontSize: "2em", color: "black", margin: "0 0 0 80px" }}>
             {next ?
-              <Link to={next.uri} rel="next" style={{ textDecoration: "none" }}>
+              <Link to={next.uri + `#${nextNum}`} rel="next" style={{ textDecoration: "none" }}>
                 {nextNum && nextNum} ›
               </Link>
               : <Link to={'/'} style={{ fontSize: ".5em", margin: "0 0 0 80px", color: "white" }}>Go Home</Link>
