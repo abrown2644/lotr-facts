@@ -187,8 +187,9 @@ button:focus,button:active {
 }
 .message-entry {
   font-family: 'aniron';
-  font-size: .84em;
+  font-size: 1em;
   line-height: 28px;
+  text-align: center;
 }
 .message-link {
   color:var(--color-text);
